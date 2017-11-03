@@ -1,0 +1,10 @@
+
+@media only screen and (min-width: 992px) {
+  body {
+    padding-left: 200px;
+  }
+}
+
+.side-nav {
+  width: 200px;
+}

@@ -1,0 +1,23 @@
+{
+  "name": "twitterapi",
+  "version": "1.0.0",
+  "description": "Interact with Twitter API",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "author": "Chris McCormack",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  },
+  "dependencies": {
+    "consolidate": "^0.15.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "lodash": "^4.17.4",
+    "nunjucks": "^3.0.1",
+    "twitter": "^1.7.1"
+  }
+}

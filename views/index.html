@@ -1,0 +1,55 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  <meta name="author" content="{{ author }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <link rel="stylesheet" href="./public/styles.css">
+    
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+</head>
+
+<body>
+  <div class='container' >
+    <ul id="slide-out" class="side-nav fixed hide-on-small-only">
+      {% for trend in trends %}
+        <li><a href="/{{trend.query | safe}}">{{ trend.name }}</a></li>
+      {% endfor %}
+    </ul>
+    <h1>{{ query }}</h1>
+      <div class="row">
+        {% for card in cards %}
+        <div class="col s12 m12 l6 xl4">
+          <div class="card medium hoverable">
+            <div class="card-image">
+              <a href="{{ card.media.url }}" target="_blank"><img src="{{ card.media.media_url }}"></a>
+            </div>
+            <div class="card-content">
+              <p>{{ card.text | safe }}</p>
+            </div>
+            <div class="card-action">
+              <a href="https://www.twitter.com/{{ card.user.screen_name }}">@{{ card.user.name }}</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+  </div>
+  <script>
+    // Initialize collapse button 
+    $(".button-collapse").sideNav()
+  </script>
+</body>
+</html>

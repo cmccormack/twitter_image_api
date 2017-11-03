@@ -1,2 +1,2 @@
-# twitter_image_api
+# Twitter Image API
 Grabs recent images based on hashtag search
