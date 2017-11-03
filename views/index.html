@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-  <link rel="stylesheet" href="./public/styles.css">
+  <link rel="stylesheet" href="/public/styles.css">
     
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -25,10 +25,15 @@
   <div class='container' >
     <ul id="slide-out" class="side-nav fixed hide-on-small-only">
       {% for trend in trends %}
-        <li><a href="/{{trend.query | safe}}">{{ trend.name }}</a></li>
+        <li class='trend-list-item'><a href="/{{trend.query | safe}}"><span class='trend-list-item-text'>{{ trend.name }}</span></a></li>
       {% endfor %}
     </ul>
-    <h1>{{ query }}</h1>
+
+
+    <!-- <h1>{{ query }}</h1> -->
+    <form id='search-form' action='/submit' method='post'>
+      <input name='search' id='search-input' value="{{query}}" type='text' />
+    </form>
       <div class="row">
         {% for card in cards %}
         <div class="col s12 m12 l6 xl4">

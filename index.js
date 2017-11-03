@@ -3,12 +3,14 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const cons = require('consolidate')
+const bodyParser = require('body-parser')
 const Twitter = require('twitter')
 
 app.engine('html', cons.nunjucks)
 app.set('view engine', 'html')
 app.set('views', path.join(__dirname, 'views'))
 app.use('/public', express.static('public'))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 const client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -41,7 +43,11 @@ const query = {
 const regex_url = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
 const regex_hashtag = /(#[a-z0-9]+)/ig
 
-app.get('/:query', (req, res, next) => {
+app.get('/', (req, res) => {
+  res.send('Homepage')
+})
+
+app.get('/hashtag/:query', (req, res, next) => {
   query.q = req.params.query
   if (req.params.query[0] !== '#') {
     query.q = '#' + query.q
@@ -50,9 +56,7 @@ app.get('/:query', (req, res, next) => {
   let trends = []
 
   const tweets = client.get('search/tweets', query, (err, tweets, response) => {
-
     tweets.statuses.forEach(item => {
-      console.log(item.text)
       if (!item.hasOwnProperty('retweeted_status') && item.entities.media){
         cards.push({
           media: item.entities.media[0],
@@ -81,6 +85,19 @@ app.get('/:query', (req, res, next) => {
       })
     })
   })
+})
+
+app.post('/submit', (req, res) => {
+  console.log('posted')
+  console.log(req.body.search)
+
+  if (req.body.search[0] === '#'){
+
+    res.redirect(`/hashtag/${req.body.search}`)
+  } else {
+    res.redirect(`/${res.body.search}`)
+  }
+
 })
 
 const server = app.listen(8080, ()=>{
